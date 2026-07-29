@@ -1,6 +1,6 @@
 [package]
 name = "time-of-day"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2024"
 rust-version = "1.88"
@@ -10,7 +10,7 @@ keywords = []
 categories = ["no-std", "date-and-time", "database", "parser-implementations", "value-formatting"]
 description = "A time-of-day type supporting the inclusive range from 00:00:00 through 24:00:00."
 license = "MIT"
-include = ["src/**/*", "tests/**/*", "Cargo.toml", "README.md", "LICENSE"]
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
 [dependencies]
 chrono = { version = "0.4", default-features = false, optional = true }

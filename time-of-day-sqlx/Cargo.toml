@@ -10,7 +10,7 @@ keywords = ["time", "sqlx", "database"]
 categories = ["date-and-time", "database"]
 description = "SQLx integrations for time-of-day."
 license = "MIT"
-include = ["src/**/*", "tests/**/*", "Cargo.toml", "README.md", "LICENSE"]
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
 [dependencies]
 time-of-day = { version = "0.1", path = "../time-of-day" }
