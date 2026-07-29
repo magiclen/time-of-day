@@ -88,8 +88,8 @@ impl<R: Resolution> TimeOfDay<R> {
 
     /// Returns seconds since the start of day.
     #[inline]
-    pub fn seconds_since_start_of_day(self) -> u64 {
-        self.nanoseconds_since_start_of_day() / NANOSECONDS_PER_SECOND
+    pub fn seconds_since_start_of_day(self) -> u32 {
+        (self.nanoseconds_since_start_of_day() / NANOSECONDS_PER_SECOND) as u32
     }
 
     /// Returns the hour component in `0..=24`.
