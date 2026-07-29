@@ -404,7 +404,7 @@ impl<R: Resolution> Ord for TimeOfDay<R> {
 
 impl<R: Resolution> Hash for TimeOfDay<R> {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.ticks().hash(state);
+        self.nanoseconds_since_start_of_day().hash(state);
     }
 }
 

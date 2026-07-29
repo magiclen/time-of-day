@@ -1,4 +1,5 @@
-use core::{mem::size_of, time::Duration};
+use core::{hash::Hash, mem::size_of, time::Duration};
+use std::hash::{DefaultHasher, Hasher};
 
 use time_of_day::{
     ComponentRangeError, DynamicTimeOfDay, FormatOptions, HundredNanosecond, Microsecond,
@@ -102,11 +103,19 @@ fn formatter_trims_to_minimum_resolution() {
 }
 
 #[test]
-fn cross_resolution_comparison_uses_value() {
+fn cross_resolution_equality_and_hashing_use_value() {
     let minute = TimeOfDay::<Minute>::from_hour_minute(12, 30).unwrap();
     let second = TimeOfDay::<Second>::from_hms(12, 30, 0).unwrap();
 
     assert_eq!(minute, second);
+
+    let mut expected_hasher = DefaultHasher::new();
+    minute.hash(&mut expected_hasher);
+
+    let mut actual_hasher = DefaultHasher::new();
+    second.hash(&mut actual_hasher);
+
+    assert_eq!(expected_hasher.finish(), actual_hasher.finish());
 }
 
 #[test]

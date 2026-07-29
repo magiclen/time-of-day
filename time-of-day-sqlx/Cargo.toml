@@ -20,6 +20,9 @@ sqlx-mysql = { version = "0.9", default-features = false, optional = true }
 sqlx-postgres = { version = "0.9", default-features = false, optional = true }
 sqlx-sqlite = { version = "0.9", default-features = false, features = ["bundled"], optional = true }
 
+[dev-dependencies]
+futures-executor = "0.3"
+
 [features]
 default = []
 postgres = ["dep:sqlx-postgres"]

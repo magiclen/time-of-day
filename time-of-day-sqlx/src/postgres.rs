@@ -1,4 +1,7 @@
 //! PostgreSQL `TIME WITHOUT TIME ZONE` support.
+//!
+//! Use a `TIME(6)` column when every value accepted by [`PgTimeOfDay`] must round-trip unchanged.
+//! A lower column precision can round an encoded value after wire-format validation.
 
 use core::fmt;
 

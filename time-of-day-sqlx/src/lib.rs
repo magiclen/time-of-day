@@ -40,6 +40,13 @@ assert_eq!(&value, stored.as_inner());
 No backend feature is enabled by default.
 [`StorageError`] remains available without selecting a backend.
 
+## Schema precision
+
+Wire-format validation cannot inspect a column's declared fractional precision.
+Use PostgreSQL `TIME(6)` or MySQL and MariaDB `TIME(6)` when every value accepted by the corresponding wrapper must round-trip unchanged.
+MySQL and MariaDB use fractional precision zero when `TIME` has no explicit precision.
+A lower column precision can round or truncate an encoded value.
+
 ## `no_std`
 
 This adapter crate requires the standard library through SQLx.

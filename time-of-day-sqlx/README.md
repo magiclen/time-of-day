@@ -41,6 +41,15 @@ No backend feature is enabled by default.
 
 The PostgreSQL and MySQL wrappers reject values that would lose precision in their microsecond wire formats. The SQLite integer policy depends on the selected Rust resolution, while the text policy uses the canonical `TimeOfDay` display format.
 
+## Schema Precision
+
+Wire-format validation cannot detect the fractional precision declared by a database column.
+
+- For PostgreSQL, use `TIME(6)` when every value accepted by `PgTimeOfDay` must round-trip unchanged, or select a lower `TIME(p)` only when the application does not store finer values.
+- MySQL and MariaDB use fractional precision zero when `TIME` has no explicit precision. Use `TIME(6)` when every value accepted by `MySqlTimeOfDay` must round-trip unchanged.
+
+A column with lower fractional precision can round or truncate a value after the wrapper has validated and encoded it.
+
 ## `no_std`
 
 This adapter crate requires the standard library through SQLx. For a `no_std` time-of-day type without database integration, use `time-of-day` with `default-features = false`.

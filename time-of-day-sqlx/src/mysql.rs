@@ -1,4 +1,7 @@
 //! MySQL and MariaDB `TIME` support with a time-of-day domain restriction.
+//!
+//! MySQL and MariaDB use fractional precision zero when `TIME` has no explicit precision.
+//! Use a `TIME(6)` column when every value accepted by [`MySqlTimeOfDay`] must round-trip unchanged.
 
 use core::{
     fmt,
