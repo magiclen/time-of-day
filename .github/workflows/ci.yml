@@ -58,7 +58,7 @@ jobs:
           - macos-latest
           - windows-latest
         toolchain:
-          - 1.88
+          - 1.94
         features:
           -
           - --all-features
