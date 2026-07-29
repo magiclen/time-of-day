@@ -1,13 +1,13 @@
 [package]
 name = "time-of-day"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2024"
 rust-version = "1.88"
 repository = "https://github.com/magiclen/time-of-day"
 homepage = "https://magiclen.org/time-of-day"
 keywords = ["time", "24-00", "database", "midnight", "overnight"]
-categories = ["no-std", "date-and-time", "database", "parser-implementations", "value-formatting"]
+categories = ["no-std", "date-and-time", "parser-implementations", "value-formatting"]
 description = "A time-of-day type supporting the inclusive range from 00:00:00 through 24:00:00."
 license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
