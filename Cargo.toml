@@ -1,5 +1,7 @@
 [workspace]
 resolver = "3"
 members = [
-    "time-of-day"
+    "time-of-day",
+    "time-of-day-sqlx",
+    "time-of-day-tiberius",
 ]

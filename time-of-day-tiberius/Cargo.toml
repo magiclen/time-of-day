@@ -1,0 +1,18 @@
+[package]
+name = "time-of-day-tiberius"
+version = "0.1.0"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2024"
+rust-version = "1.88"
+repository = "https://github.com/magiclen/time-of-day"
+homepage = "https://magiclen.org/time-of-day"
+keywords = ["time", "tiberius", "sql-server", "database"]
+categories = ["date-and-time", "database"]
+description = "Tiberius and SQL Server integrations for time-of-day."
+license = "MIT"
+include = ["src/**/*", "tests/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[dependencies]
+time-of-day = { version = "0.1", path = "../time-of-day" }
+
+tiberius = { version = "0.12", default-features = false, features = ["tds73"] }
