@@ -3,7 +3,7 @@
 //! Use a `TIME(6)` column when every value accepted by [`PgTimeOfDay`] must round-trip unchanged.
 //! A lower column precision can round an encoded value after wire-format validation.
 
-use core::fmt;
+use core::fmt::{self, Debug, Formatter};
 
 use sqlx_core::{
     decode::Decode,
@@ -57,9 +57,15 @@ impl<R: Resolution> PgTimeOfDay<R> {
     }
 }
 
-impl<R: Resolution> fmt::Debug for PgTimeOfDay<R> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<R: Resolution> Debug for PgTimeOfDay<R> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("PgTimeOfDay").field(&self.0).finish()
+    }
+}
+
+impl<R: Resolution> From<PgTimeOfDay<R>> for TimeOfDay<R> {
+    fn from(value: PgTimeOfDay<R>) -> Self {
+        value.0
     }
 }
 

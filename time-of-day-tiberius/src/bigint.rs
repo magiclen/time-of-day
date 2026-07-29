@@ -1,5 +1,4 @@
-use core::fmt;
-
+use core::fmt::{self, Debug, Formatter};
 use tiberius::{ColumnData, FromSql, FromSqlOwned, IntoSql, ToSql};
 use time_of_day::{ComponentRangeError, Resolution, TimeOfDay};
 
@@ -31,8 +30,8 @@ impl<R: Resolution> BigIntNanoseconds<R> {
     }
 }
 
-impl<R: Resolution> fmt::Debug for BigIntNanoseconds<R> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<R: Resolution> Debug for BigIntNanoseconds<R> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("BigIntNanoseconds").field(&self.0).finish()
     }
 }
@@ -40,6 +39,12 @@ impl<R: Resolution> fmt::Debug for BigIntNanoseconds<R> {
 impl<R: Resolution> From<TimeOfDay<R>> for BigIntNanoseconds<R> {
     fn from(value: TimeOfDay<R>) -> Self {
         Self(value)
+    }
+}
+
+impl<R: Resolution> From<BigIntNanoseconds<R>> for TimeOfDay<R> {
+    fn from(value: BigIntNanoseconds<R>) -> Self {
+        value.0
     }
 }
 

@@ -4,7 +4,7 @@
 //! Use a `TIME(6)` column when every value accepted by [`MySqlTimeOfDay`] must round-trip unchanged.
 
 use core::{
-    fmt,
+    fmt::{self, Debug, Formatter},
     hash::{Hash, Hasher},
 };
 
@@ -73,11 +73,35 @@ impl<R: Resolution> MySqlTimeOfDay<R> {
     pub const fn into_inner(self) -> TimeOfDay<R> {
         self.inner
     }
+
+    /// Borrows the wrapped encoded value.
+    #[inline]
+    pub const fn as_encoded(&self) -> &MySqlTime {
+        &self.encoded
+    }
+
+    /// Returns the wrapped encoded value.
+    #[inline]
+    pub const fn into_encoded(self) -> MySqlTime {
+        self.encoded
+    }
 }
 
-impl<R: Resolution> fmt::Debug for MySqlTimeOfDay<R> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<R: Resolution> Debug for MySqlTimeOfDay<R> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("MySqlTimeOfDay").field(&self.inner).finish()
+    }
+}
+
+impl<R: Resolution> From<MySqlTimeOfDay<R>> for TimeOfDay<R> {
+    fn from(value: MySqlTimeOfDay<R>) -> Self {
+        value.inner
+    }
+}
+
+impl<R: Resolution> From<MySqlTimeOfDay<R>> for MySqlTime {
+    fn from(value: MySqlTimeOfDay<R>) -> Self {
+        value.encoded
     }
 }
 

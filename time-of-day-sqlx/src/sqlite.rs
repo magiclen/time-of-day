@@ -1,6 +1,6 @@
 //! SQLite support with separate `INTEGER` and `TEXT` storage policies.
 
-use core::fmt;
+use core::fmt::{self, Debug, Formatter};
 
 use sqlx_core::{
     decode::Decode,
@@ -37,8 +37,8 @@ impl<R: Resolution> SqliteIntegerTimeOfDay<R> {
     }
 }
 
-impl<R: Resolution> fmt::Debug for SqliteIntegerTimeOfDay<R> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<R: Resolution> Debug for SqliteIntegerTimeOfDay<R> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("SqliteIntegerTimeOfDay")
             .field(&self.0)
             .finish()
@@ -48,6 +48,12 @@ impl<R: Resolution> fmt::Debug for SqliteIntegerTimeOfDay<R> {
 impl<R: Resolution> From<TimeOfDay<R>> for SqliteIntegerTimeOfDay<R> {
     fn from(value: TimeOfDay<R>) -> Self {
         Self(value)
+    }
+}
+
+impl<R: Resolution> From<SqliteIntegerTimeOfDay<R>> for TimeOfDay<R> {
+    fn from(value: SqliteIntegerTimeOfDay<R>) -> Self {
+        value.0
     }
 }
 

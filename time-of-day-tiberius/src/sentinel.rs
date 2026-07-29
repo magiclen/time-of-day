@@ -1,4 +1,4 @@
-use core::fmt;
+use core::fmt::{self, Debug, Formatter};
 
 use tiberius::{ColumnData, FromSql, FromSqlOwned, IntoSql, ToSql, time::Time};
 use time_of_day::{
@@ -65,11 +65,17 @@ impl<R: Resolution> Time7EndOfDaySentinel<R> {
     }
 }
 
-impl<R: Resolution> fmt::Debug for Time7EndOfDaySentinel<R> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<R: Resolution> Debug for Time7EndOfDaySentinel<R> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("Time7EndOfDaySentinel")
             .field(&self.0)
             .finish()
+    }
+}
+
+impl<R: Resolution> From<Time7EndOfDaySentinel<R>> for TimeOfDay<R> {
+    fn from(value: Time7EndOfDaySentinel<R>) -> Self {
+        value.0
     }
 }
 
