@@ -86,22 +86,28 @@ impl<R: Resolution> TimeOfDay<R> {
         self.ticks() * R::NANOSECONDS_PER_TICK
     }
 
+    /// Returns seconds since the start of day.
+    #[inline]
+    pub fn seconds_since_start_of_day(self) -> u64 {
+        self.nanoseconds_since_start_of_day() / NANOSECONDS_PER_SECOND
+    }
+
     /// Returns the hour component in `0..=24`.
     #[inline]
     pub fn hour(self) -> u8 {
-        (self.nanoseconds_since_start_of_day() / (3_600 * NANOSECONDS_PER_SECOND)) as u8
+        (self.seconds_since_start_of_day() / 3_600) as u8
     }
 
     /// Returns the minute component in `0..=59`.
     #[inline]
     pub fn minute(self) -> u8 {
-        ((self.nanoseconds_since_start_of_day() / (60 * NANOSECONDS_PER_SECOND)) % 60) as u8
+        ((self.seconds_since_start_of_day() / 60) % 60) as u8
     }
 
     /// Returns the second component in `0..=59`.
     #[inline]
     pub fn second(self) -> u8 {
-        ((self.nanoseconds_since_start_of_day() / NANOSECONDS_PER_SECOND) % 60) as u8
+        (self.seconds_since_start_of_day() % 60) as u8
     }
 
     /// Returns the complete millisecond fraction within the current second.
